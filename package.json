@@ -1,0 +1,50 @@
+{
+  "name": "@tom/design-system",
+  "version": "0.1.0",
+  "description": "Design system installable en npm avec styles, composants et custom elements.",
+  "main": "./dist/index.js",
+  "types": "./dist/lib/index.d.ts",
+  "files": [
+    "dist",
+    "src/styles/base/_reset.scss",
+    "src/styles/library.scss",
+    "src/styles/tokens"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/lib/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./register": {
+      "types": "./dist/lib/register.d.ts",
+      "default": "./dist/register.js"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./scss/library.scss": "./src/styles/library.scss",
+    "./scss/tokens.scss": "./src/styles/tokens/_index.scss"
+  },
+  "sideEffects": [
+    "**/*.css",
+    "**/*.scss"
+  ],
+  "scripts": {
+    "build": "webpack build --config webpack.lib.cjs --mode production && tsc -p tsconfig.lib.json",
+    "prepack": "npm run build",
+    "typecheck": "vue-tsc --noEmit && tsc -p tsconfig.lib.json"
+  },
+  "dependencies": {
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "css-loader": "^7.1.2",
+    "mini-css-extract-plugin": "^2.9.2",
+    "sass": "^1.83.0",
+    "sass-loader": "^16.0.4",
+    "ts-loader": "^9.6.2",
+    "typescript": "^5.9.3",
+    "vue-loader": "^17.4.2",
+    "vue-tsc": "^3.3.7",
+    "webpack": "^5.108.0",
+    "webpack-cli": "^7.0.0"
+  }
+}
