@@ -26,6 +26,8 @@ docker build -t tom-design-system-lib .
 docker run --rm tom-design-system-lib
 ```
 
+Cette image est autonome et ne dépend d’aucun autre dossier du dépôt.
+
 ## Build du package
 
 ```bash
@@ -36,7 +38,9 @@ Génère le package distribuable dans `dist/` :
 
 - `index.js` pour enregistrer les composants à la demande
 - `register.js` pour enregistrer tous les custom elements automatiquement
-- `styles.css` pour les tokens et styles globaux nécessaires
+- `register.css` pour les styles des composants en usage custom elements
+- `vue.js` pour importer les composants Vue bruts (voir plus bas)
+- `styles.css` pour les tokens et le reset global
 - les types `.d.ts`
 
 ## Vérification de type
@@ -60,9 +64,14 @@ En local, le plus simple est d'utiliser l'un de ces flux :
 TypeScript :
 
 ```ts
-import '@tom/design-system/styles.css';
-import '@tom/design-system/register';
+import '@tom/design-system/styles.css';   // tokens + reset
+import '@tom/design-system/register.css'; // styles des composants
+import '@tom/design-system/register';     // enregistre les <ds-*>
 ```
+
+Les custom elements sont enregistrés avec `shadowRoot: false` : leurs styles ne sont pas
+encapsulés et doivent être chargés dans le document. `register.css` est donc obligatoire — sans
+lui les `<ds-*>` s'affichent sans style.
 
 Twig :
 
@@ -78,6 +87,23 @@ SCSS :
 ```
 
 Les composants simples sont directement utilisables en Twig. Les composants à données structurées (`accordion`, `tabs`, `table`, `chart`, `navigation-menu`, `sidebar`, `select`, `multiselect`) sont mieux pilotés via TypeScript en assignant des propriétés sur l'élément custom.
+
+## Utilisation dans une appli Vue
+
+Pour un site consommateur qui est lui-même en Vue 3 (ex. le site de documentation), il est préférable d'importer les composants Vue bruts plutôt que les custom elements : props/slots typés nativement, pas de sérialisation d'attributs.
+
+```ts
+import { BaseButton, BaseDialog } from '@tom/design-system/vue';
+import '@tom/design-system/styles.css';
+```
+
+```vue
+<template>
+  <BaseButton variant="primary">Valider</BaseButton>
+</template>
+```
+
+`vue` est déclaré en `peerDependencies` : l'appli consommatrice doit avoir sa propre installation de Vue 3 (ce bundle ne l'embarque pas, contrairement à `register.js`).
 
 Exemple local de validation du package :
 

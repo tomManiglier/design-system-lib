@@ -1,0 +1,17 @@
+// Tokens de mouvement.
+// Durées et courbes utilisées par les composants du design system.
+// Rôles : feedback (réaction immédiate), orientation (d'où vient l'élément),
+// continuité (transition entre deux états d'une même surface).
+
+:root {
+  // --- Durées ---
+  --duration-fast: 0.15s; // feedback : hover, focus, pressage
+  --duration-base: 0.2s; // transitions d'état des composants
+  --duration-slow: 0.3s; // apparitions : dialog, drawer, thème
+  --duration-slower: 0.4s; // mouvements expressifs : bascule de thème, soulignements
+
+  // --- Courbes ---
+  --ease-standard: ease; // transitions simples de couleur/opacité
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1); // entrées d'éléments, soulignements
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1); // bascules d'état (thème, toggles)
+}

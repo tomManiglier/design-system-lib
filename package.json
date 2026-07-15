@@ -19,20 +19,29 @@
       "types": "./dist/lib/register.d.ts",
       "default": "./dist/register.js"
     },
+    "./register.css": "./dist/register.css",
+    "./vue": {
+      "types": "./dist/lib/vue.d.ts",
+      "default": "./dist/vue.js"
+    },
     "./styles.css": "./dist/styles.css",
     "./scss/library.scss": "./src/styles/library.scss",
     "./scss/tokens.scss": "./src/styles/tokens/_index.scss"
   },
   "sideEffects": [
     "**/*.css",
-    "**/*.scss"
+    "**/*.scss",
+    "**/*.vue"
   ],
   "scripts": {
-    "build": "webpack build --config webpack.lib.cjs --mode production && tsc -p tsconfig.lib.json",
+    "build": "webpack build --config webpack.lib.cjs --mode production && webpack build --config webpack.lib.vue.cjs --mode production && tsc -p tsconfig.lib.json && node scripts/copy-vue-sources.cjs",
     "prepack": "npm run build",
     "typecheck": "vue-tsc --noEmit && tsc -p tsconfig.lib.json"
   },
   "dependencies": {
+    "vue": "^3.5.13"
+  },
+  "peerDependencies": {
     "vue": "^3.5.13"
   },
   "devDependencies": {
@@ -40,6 +49,7 @@
     "mini-css-extract-plugin": "^2.9.2",
     "sass": "^1.83.0",
     "sass-loader": "^16.0.4",
+    "style-loader": "^4.0.0",
     "ts-loader": "^9.6.2",
     "typescript": "^5.9.3",
     "vue-loader": "^17.4.2",

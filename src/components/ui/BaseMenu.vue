@@ -1,6 +1,6 @@
 <template>
   <div ref="root" class="menu">
-    <div class="menu__trigger" @click="open = !open">
+    <div ref="triggerEl" class="menu__trigger" @click="toggle">
       <slot name="trigger">
         <button type="button" class="menu__default-trigger" :aria-expanded="open">
           Menu
@@ -8,28 +8,30 @@
       </slot>
     </div>
 
-    <div v-if="open" class="menu__panel" role="menu">
-      <template v-for="(entry, i) in entries">
-        <div v-if="entry.separator" :key="`sep-${i}`" class="menu__separator" role="separator" />
-        <button
-          v-else
-          :key="`item-${i}`"
-          type="button"
-          class="menu__item"
-          :class="{ 'menu__item--danger': entry.danger }"
-          role="menuitem"
-          @click="select(entry)"
-        >
-          <BaseIcon v-if="entry.icon" :name="entry.icon" :size="15" class="menu__icon" />
-          {{ entry.label }}
-        </button>
-      </template>
-    </div>
+    <Teleport to="body">
+      <div v-if="open" ref="panelEl" class="menu__panel" role="menu" :style="panelStyle">
+        <template v-for="(entry, i) in entries">
+          <div v-if="entry.separator" :key="`sep-${i}`" class="menu__separator" role="separator" />
+          <button
+            v-else
+            :key="`item-${i}`"
+            type="button"
+            class="menu__item"
+            :class="{ 'menu__item--danger': entry.danger }"
+            role="menuitem"
+            @click="select(entry)"
+          >
+            <BaseIcon v-if="entry.icon" :name="entry.icon" :size="15" class="menu__icon" />
+            {{ entry.label }}
+          </button>
+        </template>
+      </div>
+    </Teleport>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref } from 'vue';
+import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
 import BaseIcon from './BaseIcon.vue';
 import type { MenuEntry } from './types';
 
@@ -41,6 +43,30 @@ const emit = defineEmits<{
 
 const open = ref(false);
 const root = ref<HTMLElement | null>(null);
+const triggerEl = ref<HTMLElement | null>(null);
+const panelEl = ref<HTMLElement | null>(null);
+const panelStyle = ref<{ top: string; left: string }>({ top: '0px', left: '0px' });
+
+function toggle() {
+  open.value = !open.value;
+  if (open.value) nextTick(updatePosition);
+}
+
+function updatePosition() {
+  const trigger = triggerEl.value;
+  if (!trigger) return;
+  const rect = trigger.getBoundingClientRect();
+  const panelWidth = panelEl.value?.offsetWidth ?? 180;
+  const margin = 8;
+  let left = rect.left;
+  if (left + panelWidth > window.innerWidth - margin) {
+    left = rect.right - panelWidth;
+  }
+  panelStyle.value = {
+    top: `${rect.bottom + 4}px`,
+    left: `${Math.max(margin, left)}px`,
+  };
+}
 
 function select(entry: MenuEntry) {
   emit('select', entry.value ?? entry.label ?? '');
@@ -48,23 +74,32 @@ function select(entry: MenuEntry) {
 }
 
 function onClickOutside(event: MouseEvent) {
-  if (root.value && !root.value.contains(event.target as Node)) {
-    open.value = false;
-  }
+  const target = event.target as Node;
+  if (root.value?.contains(target)) return;
+  if (panelEl.value?.contains(target)) return;
+  open.value = false;
 }
 
 function onKeydown(event: KeyboardEvent) {
   if (event.key === 'Escape') open.value = false;
 }
 
+function onScroll() {
+  if (open.value) open.value = false;
+}
+
 onMounted(() => {
   document.addEventListener('mousedown', onClickOutside);
   document.addEventListener('keydown', onKeydown);
+  window.addEventListener('scroll', onScroll, true);
+  window.addEventListener('resize', onScroll);
 });
 
 onBeforeUnmount(() => {
   document.removeEventListener('mousedown', onClickOutside);
   document.removeEventListener('keydown', onKeydown);
+  window.removeEventListener('scroll', onScroll, true);
+  window.removeEventListener('resize', onScroll);
 });
 </script>
 
@@ -91,10 +126,8 @@ onBeforeUnmount(() => {
 }
 
 .menu__panel {
-  position: absolute;
-  top: calc(100% + 4px);
-  left: 0;
-  z-index: 30;
+  position: fixed;
+  z-index: 100;
   display: flex;
   flex-direction: column;
   gap: 2px;

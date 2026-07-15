@@ -2,11 +2,10 @@ FROM node:22-bookworm
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-COPY tsconfig.json tsconfig.lib.json webpack.lib.cjs ./
+COPY package*.json ./
+COPY tsconfig.json tsconfig.lib.json webpack.lib.cjs webpack.lib.vue.cjs ./
+COPY scripts ./scripts
 COPY src ./src
-COPY node_modules ./node_modules
 
+RUN npm ci
 RUN npm run build
-
-CMD ["npm", "run", "build"]
