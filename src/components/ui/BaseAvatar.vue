@@ -49,7 +49,7 @@ withDefaults(
 }
 
 .avatar__circle--gradient {
-  color: #ffffff;
+  color: #1a1a1a; // dégradé toujours pastel : texte foncé lisible sur tous les stops
 
   &::before {
     content: '';

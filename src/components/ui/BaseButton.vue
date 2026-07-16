@@ -82,7 +82,7 @@ withDefaults(
 
   &:hover {
     background-color: var(--color-brand-secondary);
-    color: #ffffff; // fond bleu foncé au survol : texte clair
+    color: #ffffff; // fond indigo foncé au survol : texte clair
   }
 }
 
@@ -101,14 +101,14 @@ withDefaults(
   z-index: 0;
   overflow: hidden;
   background: var(--gradient-brand);
-  color: #ffffff;
+  color: #1a1a1a; // dégradé toujours pastel : texte foncé lisible sur tous les stops
 
   &::before {
     content: '';
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: linear-gradient(225deg, #fadadd 0%, #3b1e54 100%);
+    background: linear-gradient(225deg, #fadadd 0%, #ff7e5f 25%, #ffdab9 55%, #a7e3dd 100%);
     opacity: 0;
     transition: opacity 0.3s ease;
   }

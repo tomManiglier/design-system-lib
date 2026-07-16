@@ -4,8 +4,9 @@
 
 :root {
   // --- Couleurs de marque ---
+  --color-cyan: #a7e3dd;
   --color-brand-primary: #fadadd;
-  --color-brand-secondary: #08113b;
+  --color-brand-secondary: #2a1442;
   --color-anthracite: #333333;
 
   // --- Marque : couleurs secondaires ---
@@ -14,8 +15,10 @@
   --color-peach: #ffdab9;
 
   // --- Dégradés ---
-  --gradient-brand: linear-gradient(45deg, #fadadd 0%, #3b1e54 100%);
-  --gradient-brand-cool: linear-gradient(45deg, #fadadd 0%, #08113b 100%);
+  // Signature "ciel rose" : cyan → crème/pêche → corail → rose, toujours pastel (aucun stop
+  // foncé) pour que le texte posé dessus puisse rester systématiquement sombre.
+  --gradient-brand: linear-gradient(45deg, #a7e3dd 0%, #ffdab9 45%, #ff7e5f 75%, #fadadd 100%);
+  --gradient-brand-cool: linear-gradient(45deg, #a7e3dd 0%, #fadadd 100%);
 
   // --- Échelle neutre (noir / gris / blanc) ---
   --neutral-black: #111111;
