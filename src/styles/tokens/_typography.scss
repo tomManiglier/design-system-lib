@@ -1,12 +1,11 @@
 // Tokens typographie.
-// Titres : Quicksand.
-// Corps : Helvetica.
+// Titres : Inter.
+// Corps : Roboto.
 
 :root {
   // Familles
-  --font-title: 'Quicksand', sans-serif;
-  --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --font-roboto: 'Roboto', sans-serif;
+  --font-title: 'Inter', sans-serif;
+  --font-body: 'Roboto', Arial, sans-serif;
   --font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', Consolas, monospace;
 
   // Graisses

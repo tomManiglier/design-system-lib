@@ -66,7 +66,7 @@ withDefaults(
   color: var(--color-foreground);
 
   .avatar__fallback {
-    font-family: var(--font-roboto);
+    font-family: var(--font-body);
     font-weight: var(--weight-medium);
   }
 }
