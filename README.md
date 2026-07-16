@@ -1,6 +1,6 @@
-# @tom/design-system
+# @tommaniglier/design-system-lib
 
-Bibliothèque de design system installable via npm.
+Bibliothèque de design system, publiée sur GitHub Packages.
 
 ## Stack
 
@@ -22,8 +22,8 @@ npm install
 ## Image Docker
 
 ```bash
-docker build -t tom-design-system-lib .
-docker run --rm tom-design-system-lib
+docker build -t design-system-lib .
+docker run --rm design-system-lib
 ```
 
 Cette image est autonome et ne dépend d’aucun autre dossier du dépôt.
@@ -49,24 +49,33 @@ Génère le package distribuable dans `dist/` :
 npm run typecheck
 ```
 
-## Flux recommandé pour la documentation
+## Publier sur GitHub Packages
 
-Le site de documentation vit dans un autre dépôt et doit consommer cette bibliothèque comme n'importe quel site externe.
+Le paquet est scoppé sous `@tommaniglier`, ce qui le lie au compte/organisation GitHub du même
+nom. Publier vers GitHub Packages (et non npmjs.org) exige un `.npmrc` local avec le scope routé
+vers `npm.pkg.github.com` et un token ayant `write:packages` :
 
-En local, le plus simple est d'utiliser l'un de ces flux :
+```
+# .npmrc (non commité - voir .gitignore)
+@tommaniglier:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=<token GitHub>
+```
 
-- `npm pack` dans ce dépôt puis installation du tarball dans le dépôt docs
-- dépendance `file:` pointant vers ce dépôt pendant la migration
-- publication sur le registre privé puis installation d'une version publiée
+Puis :
+
+```bash
+npm version patch   # ou minor / major
+npm publish
+```
 
 ## Utilisation dans Twig / TypeScript / SCSS
 
 TypeScript :
 
 ```ts
-import '@tom/design-system/styles.css';   // tokens + reset
-import '@tom/design-system/register.css'; // styles des composants
-import '@tom/design-system/register';     // enregistre les <ds-*>
+import '@tommaniglier/design-system-lib/styles.css';   // tokens + reset
+import '@tommaniglier/design-system-lib/register.css'; // styles des composants
+import '@tommaniglier/design-system-lib/register';     // enregistre les <ds-*>
 ```
 
 Les custom elements sont enregistrés avec `shadowRoot: false` : leurs styles ne sont pas
@@ -83,7 +92,7 @@ Twig :
 SCSS :
 
 ```scss
-@use '@tom/design-system/scss/tokens.scss' as *;
+@use '@tommaniglier/design-system-lib/scss/tokens.scss' as *;
 ```
 
 Les composants simples sont directement utilisables en Twig. Les composants à données structurées (`accordion`, `tabs`, `table`, `chart`, `navigation-menu`, `sidebar`, `select`, `multiselect`) sont mieux pilotés via TypeScript en assignant des propriétés sur l'élément custom.
@@ -93,8 +102,8 @@ Les composants simples sont directement utilisables en Twig. Les composants à d
 Pour un site consommateur qui est lui-même en Vue 3 (ex. le site de documentation), il est préférable d'importer les composants Vue bruts plutôt que les custom elements : props/slots typés nativement, pas de sérialisation d'attributs.
 
 ```ts
-import { BaseButton, BaseDialog } from '@tom/design-system/vue';
-import '@tom/design-system/styles.css';
+import { BaseButton, BaseDialog } from '@tommaniglier/design-system-lib/vue';
+import '@tommaniglier/design-system-lib/styles.css';
 ```
 
 ```vue
@@ -104,12 +113,6 @@ import '@tom/design-system/styles.css';
 ```
 
 `vue` est déclaré en `peerDependencies` : l'appli consommatrice doit avoir sa propre installation de Vue 3 (ce bundle ne l'embarque pas, contrairement à `register.js`).
-
-Exemple local de validation du package :
-
-```bash
-npm pack
-```
 
 ## Structure
 
