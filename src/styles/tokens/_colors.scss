@@ -39,8 +39,10 @@
   --color-primary: #1a1a1a; // action principale (proche noir, cf. maquette bento)
   --color-primary-hover: #333333;
   --color-primary-foreground: #ffffff;
-  --color-accent: var(--color-brand-primary);
-  --color-ring: var(--color-brand-primary);
+  // Accent interactif (liens, focus) : découplé de la marque rose, trop pâle pour
+  // rester lisible sur fond clair. Violet foncé en clair, rose en sombre.
+  --color-accent: #3b1e54;
+  --color-ring: #3b1e54;
 }
 
 :root[data-theme='dark'] {
@@ -55,4 +57,8 @@
   --color-primary: #fafafa;
   --color-primary-hover: #d4d4d4;
   --color-primary-foreground: #111111;
+
+  // Sur fond sombre, le rose pâle redevient lisible comme accent.
+  --color-accent: #fadadd;
+  --color-ring: #fadadd;
 }

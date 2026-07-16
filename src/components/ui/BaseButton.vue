@@ -78,20 +78,21 @@ withDefaults(
 
 .btn--brand {
   background-color: var(--color-brand-primary);
-  color: #ffffff;
+  color: #1a1a1a; // texte foncé : le rose de marque est trop clair pour du blanc
 
   &:hover {
     background-color: var(--color-brand-secondary);
+    color: #ffffff; // fond bleu foncé au survol : texte clair
   }
 }
 
 .btn--brand-outline {
   background-color: transparent;
-  color: var(--color-brand-primary);
-  border: 1px solid var(--color-brand-primary);
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
 
   &:hover {
-    background-color: rgba(0, 154, 223, 0.08);
+    background-color: var(--color-muted);
   }
 }
 
@@ -146,7 +147,7 @@ withDefaults(
 }
 
 .btn--link {
-  color: var(--color-brand-primary);
+  color: var(--color-accent);
 }
 
 // Lien noir : trait visible par défaut, il sort par la droite au survol
