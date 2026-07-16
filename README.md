@@ -1,6 +1,6 @@
 # @tommaniglier/design-system-lib
 
-Bibliothèque de design system, publiée sur GitHub Packages.
+Bibliothèque de design system, publiée sur [npm](https://www.npmjs.com/package/@tommaniglier/design-system-lib).
 
 ## Stack
 
@@ -49,19 +49,10 @@ Génère le package distribuable dans `dist/` :
 npm run typecheck
 ```
 
-## Publier sur GitHub Packages
+## Publier sur npm
 
-Le paquet est scoppé sous `@tommaniglier`, ce qui le lie au compte/organisation GitHub du même
-nom. Publier vers GitHub Packages (et non npmjs.org) exige un `.npmrc` local avec le scope routé
-vers `npm.pkg.github.com` et un token ayant `write:packages` :
-
-```
-# .npmrc (non commité - voir .gitignore)
-@tommaniglier:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=<token GitHub>
-```
-
-Puis :
+Le paquet est scoppé sous `@tommaniglier`. Un paquet scoppé doit être publié avec `--access
+public` la première fois (déjà fait pour ce paquet) :
 
 ```bash
 npm version patch   # ou minor / major
