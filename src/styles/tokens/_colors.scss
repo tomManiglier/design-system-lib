@@ -5,12 +5,12 @@
 :root {
   // --- Couleurs de marque ---
   --color-cyan: #a7e3dd;
+  --color-teal: #134e4a; // teal foncé, dérivé du ciel : remplace violet/indigo comme ancre sombre
   --color-brand-primary: #fadadd;
-  --color-brand-secondary: #2a1442;
+  --color-brand-secondary: #134e4a;
   --color-anthracite: #333333;
 
   // --- Marque : couleurs secondaires ---
-  --color-violet: #3b1e54;
   --color-orange: #ff7e5f;
   --color-peach: #ffdab9;
 
@@ -43,9 +43,9 @@
   --color-primary-hover: #333333;
   --color-primary-foreground: #ffffff;
   // Accent interactif (liens, focus) : découplé de la marque rose, trop pâle pour
-  // rester lisible sur fond clair. Violet foncé en clair, rose en sombre.
-  --color-accent: #3b1e54;
-  --color-ring: #3b1e54;
+  // rester lisible sur fond clair. Teal foncé en clair, rose en sombre.
+  --color-accent: #134e4a;
+  --color-ring: #134e4a;
 }
 
 :root[data-theme='dark'] {

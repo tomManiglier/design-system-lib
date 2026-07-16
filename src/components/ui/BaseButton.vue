@@ -97,24 +97,14 @@ withDefaults(
 }
 
 .btn--gradient {
-  position: relative;
-  z-index: 0;
-  overflow: hidden;
-  background: var(--gradient-brand);
+  background: var(--gradient-brand-cool);
+  background-size: 200% 100%;
+  background-position: 0% 50%;
   color: #1a1a1a; // dégradé toujours pastel : texte foncé lisible sur tous les stops
+  transition: background-position 0.4s ease;
 
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: linear-gradient(225deg, #fadadd 0%, #ff7e5f 25%, #ffdab9 55%, #a7e3dd 100%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  &:hover::before {
-    opacity: 1;
+  &:hover {
+    background-position: 100% 50%;
   }
 }
 
