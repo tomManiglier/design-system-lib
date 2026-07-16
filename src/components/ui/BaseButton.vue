@@ -107,7 +107,7 @@ withDefaults(
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: linear-gradient(225deg, #009adf 0%, #7c2c7e 100%);
+    background: linear-gradient(225deg, #f0669a 0%, #9061f0 100%);
     opacity: 0;
     transition: opacity 0.3s ease;
   }

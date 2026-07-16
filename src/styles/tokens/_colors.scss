@@ -4,18 +4,17 @@
 
 :root {
   // --- Couleurs de marque ---
-  --color-brand-primary: #009adf;
-  --color-brand-secondary: #005ca9;
+  --color-brand-primary: #f0669a;
+  --color-brand-secondary: #2b3572;
   --color-anthracite: #4a4a49;
 
   // --- Marque : couleurs secondaires ---
-  --color-violet: #7c2c7e;
-  --color-aubergine: #4d267b;
-  --color-yellow: #feeb17;
+  --color-violet: #9061f0;
+  --color-orange: #ffa45e;
 
   // --- Dégradés ---
-  --gradient-brand: linear-gradient(45deg, #009adf 0%, #7c2c7e 100%);
-  --gradient-brand-cool: linear-gradient(45deg, #009adf 0%, #005ca9 100%);
+  --gradient-brand: linear-gradient(45deg, #f0669a 0%, #9061f0 100%);
+  --gradient-brand-cool: linear-gradient(45deg, #f0669a 0%, #2b3572 100%);
 
   // --- Échelle neutre (noir / gris / blanc) ---
   --neutral-black: #111111;
