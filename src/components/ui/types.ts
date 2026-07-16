@@ -27,11 +27,15 @@ export interface BreadcrumbItem {
 export interface NavigationMenuLink {
   label: string;
   description?: string;
+  to?: string;
+  href?: string;
 }
 
 export interface NavigationMenuItem {
   label: string;
   links?: NavigationMenuLink[];
+  to?: string;
+  href?: string;
 }
 
 export interface MenuEntry {

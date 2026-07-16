@@ -2,8 +2,9 @@
   <nav ref="root" class="navmenu" aria-label="Navigation principale">
     <ul class="navmenu__list">
       <li v-for="(item, i) in items" :key="item.label" class="navmenu__item">
-        <button
-          type="button"
+        <component
+          :is="triggerTag(item)"
+          v-bind="triggerAttrs(item)"
           class="navmenu__trigger"
           :class="{ 'navmenu__trigger--open': openIndex === i }"
           :aria-expanded="item.links ? openIndex === i : undefined"
@@ -26,19 +27,20 @@
           >
             <path d="m6 9 6 6 6-6" />
           </svg>
-        </button>
+        </component>
 
         <div v-if="item.links && openIndex === i" class="navmenu__panel">
-          <button
+          <component
+            :is="panelLinkTag(link)"
             v-for="link in item.links"
             :key="link.label"
-            type="button"
+            v-bind="panelLinkAttrs(link)"
             class="navmenu__link"
             @click="select(link.label)"
           >
             <span class="navmenu__link-label">{{ link.label }}</span>
             <span v-if="link.description" class="navmenu__link-desc">{{ link.description }}</span>
-          </button>
+          </component>
         </div>
       </li>
     </ul>
@@ -46,10 +48,20 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref } from 'vue';
-import type { NavigationMenuItem } from './types';
+import { onBeforeUnmount, onMounted, ref, type Component } from 'vue';
+import type { NavigationMenuItem, NavigationMenuLink } from './types';
 
-defineProps<{ items: NavigationMenuItem[] }>();
+const props = withDefaults(
+  defineProps<{
+    items: NavigationMenuItem[];
+    // Composant/balise utilisée pour les entrées avec `to`/`href` : 'a' par défaut (fonctionne
+    // partout, y compris en custom element hors Vue) ; passer RouterLink pour une navigation SPA.
+    linkComponent?: string | Component;
+  }>(),
+  {
+    linkComponent: 'a',
+  },
+);
 
 const emit = defineEmits<{
   (event: 'select', label: string): void;
@@ -57,6 +69,36 @@ const emit = defineEmits<{
 
 const openIndex = ref<number | null>(null);
 const root = ref<HTMLElement | null>(null);
+
+function isRealLink(entry: { to?: string; href?: string }) {
+  return !!(entry.to || entry.href);
+}
+
+function linkAttrs(entry: { to?: string; href?: string }) {
+  if (typeof props.linkComponent !== 'string' && entry.to) {
+    return { to: entry.to };
+  }
+  return { href: entry.to ?? entry.href };
+}
+
+function triggerTag(item: NavigationMenuItem) {
+  if (item.links) return 'button';
+  return isRealLink(item) ? props.linkComponent : 'button';
+}
+
+function triggerAttrs(item: NavigationMenuItem) {
+  if (item.links || !isRealLink(item)) return { type: 'button' };
+  return linkAttrs(item);
+}
+
+function panelLinkTag(link: NavigationMenuLink) {
+  return isRealLink(link) ? props.linkComponent : 'button';
+}
+
+function panelLinkAttrs(link: NavigationMenuLink) {
+  if (!isRealLink(link)) return { type: 'button' };
+  return linkAttrs(link);
+}
 
 function toggle(index: number, item: NavigationMenuItem) {
   if (!item.links) {
@@ -127,7 +169,8 @@ onBeforeUnmount(() => {
     color 0.15s ease;
 
   &:hover,
-  &--open {
+  &--open,
+  &.router-link-active {
     color: var(--color-foreground);
     background: var(--color-surface);
     box-shadow: var(--shadow-sm);
@@ -168,7 +211,8 @@ onBeforeUnmount(() => {
   border-radius: var(--radius-sm);
   cursor: pointer;
 
-  &:hover {
+  &:hover,
+  &.router-link-active {
     background: var(--color-muted);
   }
 }
