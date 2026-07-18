@@ -166,10 +166,10 @@ onBeforeUnmount(() => {
 }
 
 .menu__item--danger {
-  color: #b3261e;
+  color: var(--color-danger);
 
   &:hover {
-    background: rgba(179, 38, 30, 0.08);
+    background: color-mix(in srgb, var(--color-danger) 8%, transparent);
   }
 }
 

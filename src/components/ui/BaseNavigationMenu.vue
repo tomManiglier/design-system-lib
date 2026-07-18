@@ -142,6 +142,8 @@ onBeforeUnmount(() => {
 
 .navmenu__list {
   display: inline-flex;
+  flex-wrap: wrap;
+  max-width: 100%;
   gap: 4px;
   padding: 4px;
   background: var(--color-muted);
@@ -194,6 +196,7 @@ onBeforeUnmount(() => {
   flex-direction: column;
   gap: 2px;
   width: 260px;
+  max-width: calc(100vw - 24px);
   padding: 6px;
   background: var(--color-surface);
   border: 1px solid var(--color-border);

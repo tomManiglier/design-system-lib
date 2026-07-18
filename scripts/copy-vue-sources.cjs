@@ -11,7 +11,9 @@ const destDir = path.resolve(__dirname, '../dist/components/ui');
 fs.mkdirSync(destDir, { recursive: true });
 
 for (const file of fs.readdirSync(srcDir)) {
-  if (file.endsWith('.vue')) {
+  // .vue : sources des composants ; .ts : modules internes qu'ils importent
+  // (composables, types) — sans eux, le typecheck du projet consommateur casse.
+  if (file.endsWith('.vue') || file.endsWith('.ts')) {
     fs.copyFileSync(path.join(srcDir, file), path.join(destDir, file));
   }
 }

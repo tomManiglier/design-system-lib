@@ -82,7 +82,7 @@ withDefaults(
 
   &:hover {
     background-color: var(--color-brand-secondary);
-    color: #ffffff; // fond indigo foncé au survol : texte clair
+    color: #ffffff; // fond bleu nuit au survol : texte clair
   }
 }
 
@@ -161,21 +161,21 @@ withDefaults(
 }
 
 .btn--destructive {
-  background-color: #b3261e;
+  background-color: var(--color-danger);
   color: #ffffff;
 
   &:hover {
-    background-color: #8f1e18;
+    background-color: var(--color-danger-hover);
   }
 }
 
 .btn--destructive-outline {
   background-color: transparent;
-  color: #b3261e;
-  border: 1px solid #b3261e;
+  color: var(--color-danger);
+  border: 1px solid var(--color-danger);
 
   &:hover {
-    background-color: rgba(179, 38, 30, 0.08);
+    background-color: color-mix(in srgb, var(--color-danger) 8%, transparent);
   }
 }
 </style>

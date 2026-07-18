@@ -5,9 +5,9 @@
 :root {
   // --- Couleurs de marque ---
   --color-cyan: #a7e3dd;
-  --color-teal: #134e4a; // teal foncé, dérivé du ciel : remplace violet/indigo comme ancre sombre
+  --color-navy: #14213d; // bleu nuit, contrepoint sombre du ciel pastel : ancre sombre de la marque
   --color-brand-primary: #fadadd;
-  --color-brand-secondary: #134e4a;
+  --color-brand-secondary: #14213d;
   --color-anthracite: #333333;
 
   // --- Marque : couleurs secondaires ---
@@ -19,6 +19,15 @@
   // foncé) pour que le texte posé dessus puisse rester systématiquement sombre.
   --gradient-brand: linear-gradient(45deg, #a7e3dd 0%, #ffdab9 45%, #ff7e5f 75%, #fadadd 100%);
   --gradient-brand-cool: linear-gradient(45deg, #a7e3dd 0%, #fadadd 100%);
+
+  // --- Couleurs de statut ---
+  // Indépendantes de la marque et du thème (mêmes valeurs en clair et en sombre).
+  // Les fonds/bordures doux se dérivent par color-mix (ex. 8 % sur transparent).
+  --color-danger: #b3261e;
+  --color-danger-hover: #8f1e18;
+  --color-success: #1a7f45;
+  --color-warning: #8a6d00;
+  --color-info: #005ca9;
 
   // --- Échelle neutre (noir / gris / blanc) ---
   --neutral-black: #111111;
@@ -43,9 +52,9 @@
   --color-primary-hover: #333333;
   --color-primary-foreground: #ffffff;
   // Accent interactif (liens, focus) : découplé de la marque rose, trop pâle pour
-  // rester lisible sur fond clair. Teal foncé en clair, rose en sombre.
-  --color-accent: #134e4a;
-  --color-ring: #134e4a;
+  // rester lisible sur fond clair. Bleu nuit en clair, rose en sombre.
+  --color-accent: #14213d;
+  --color-ring: #14213d;
 }
 
 :root[data-theme='dark'] {

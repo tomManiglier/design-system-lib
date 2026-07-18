@@ -20,7 +20,10 @@ defineProps<{ content: string }>();
   bottom: calc(100% + 8px);
   left: 50%;
   transform: translateX(-50%) translateY(4px);
-  white-space: nowrap;
+  // Bulle courte sur une ligne, mais plafonnée pour ne pas déborder les petits écrans
+  width: max-content;
+  max-width: min(240px, calc(100vw - 16px));
+  text-align: center;
   font-size: var(--text-xs);
   color: var(--color-primary-foreground);
   background: var(--color-primary);

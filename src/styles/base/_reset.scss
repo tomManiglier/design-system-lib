@@ -36,6 +36,19 @@ select,
 textarea {
   font: inherit;
   color: inherit;
-  outline: none;
   border: none;
+}
+
+// Les champs texte portent leur propre indicateur de focus (bordure + halo).
+input,
+select,
+textarea {
+  outline: none;
+}
+
+// Focus clavier visible partout ailleurs (WCAG 2.4.7). :where() garde une
+// spécificité nulle : un composant peut définir son propre indicateur sans lutter.
+:where(button, a, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 2px;
 }

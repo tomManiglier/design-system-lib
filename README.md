@@ -1,6 +1,20 @@
 # @tommaniglier/design-system-lib
 
-Bibliothèque de design system, publiée sur [npm](https://www.npmjs.com/package/@tommaniglier/design-system-lib).
+[![npm](https://img.shields.io/npm/v/%40tommaniglier%2Fdesign-system-lib)](https://www.npmjs.com/package/@tommaniglier/design-system-lib)
+[![license: MIT](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
+
+Bibliothèque de design system « ciel rose » : 40 composants Vue 3 accessibles, design tokens
+clair/sombre, utilisables en Vue ou en custom elements. Publiée sur
+[npm](https://www.npmjs.com/package/@tommaniglier/design-system-lib).
+
+**📖 Documentation et démos : [tommaniglier.github.io/design-system-doc](https://tommaniglier.github.io/design-system-doc/)**
+
+## Composants
+
+- **Formulaires** — Button, Input, Textarea, Checkbox, RadioGroup, Select, Multiselect, Switch, Slider, Form, Field, Fieldset, DatetimePicker, Calendar
+- **Affichage** — Badge, Avatar, Card, Item, Table, Chart, Meter, Progress, Skeleton, Separator, ScrollArea, Icon, Kbd
+- **Feedback** — Alert, Dialog, Tooltip, Spinner
+- **Navigation** — Tabs, Menu, NavigationMenu, Breadcrumb, Pagination, Sidebar, Drawer, Accordion, Carousel
 
 ## Stack
 
@@ -115,3 +129,7 @@ src/
 │   └── base/          # Reset global
 └── components/ui/     # Composants source Vue
 ```
+
+## Licence
+
+[MIT](./LICENSE) © Tom Maniglier

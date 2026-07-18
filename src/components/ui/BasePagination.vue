@@ -79,6 +79,8 @@ const pages = computed<(number | string)[]>(() => {
 <style scoped lang="scss">
 .pagination {
   display: inline-flex;
+  flex-wrap: wrap;
+  max-width: 100%;
   align-items: center;
   gap: 4px;
 }

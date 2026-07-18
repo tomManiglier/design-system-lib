@@ -2,7 +2,14 @@
   <Teleport to="body">
     <Transition name="drawer">
       <div v-if="modelValue" class="drawer" @click.self="close">
-        <div class="drawer__panel" role="dialog" aria-modal="true" :aria-label="title">
+        <div
+          ref="panelEl"
+          class="drawer__panel"
+          role="dialog"
+          aria-modal="true"
+          :aria-label="title"
+          tabindex="-1"
+        >
           <div class="drawer__header">
             <p v-if="title" class="drawer__title">{{ title }}</p>
             <button type="button" class="drawer__close" aria-label="Fermer" @click="close">
@@ -22,7 +29,8 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted } from 'vue';
+import { ref } from 'vue';
+import { useModalA11y } from './useModalA11y';
 
 const props = defineProps<{
   modelValue: boolean;
@@ -33,16 +41,14 @@ const emit = defineEmits<{
   (event: 'update:modelValue', value: boolean): void;
 }>();
 
+const panelEl = ref<HTMLElement | null>(null);
+
 function close() {
   emit('update:modelValue', false);
 }
 
-function onKeydown(event: KeyboardEvent) {
-  if (event.key === 'Escape' && props.modelValue) close();
-}
-
-onMounted(() => document.addEventListener('keydown', onKeydown));
-onBeforeUnmount(() => document.removeEventListener('keydown', onKeydown));
+// Échap, gel du scroll de fond, piège à focus et restauration du focus
+useModalA11y(() => props.modelValue, panelEl, close);
 </script>
 
 <style scoped lang="scss">
@@ -56,6 +62,7 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onKeydown));
 }
 
 .drawer__panel {
+  outline: none; // focus programmatique à l'ouverture : pas d'anneau sur le panneau
   display: flex;
   flex-direction: column;
   width: 380px;

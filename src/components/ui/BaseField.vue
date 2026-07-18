@@ -34,7 +34,7 @@ defineProps<{
 }
 
 .field__required {
-  color: #b3261e;
+  color: var(--color-danger);
 }
 
 .field__hint {
@@ -45,7 +45,7 @@ defineProps<{
 
 .field__error {
   font-size: var(--text-xs);
-  color: #b3261e;
+  color: var(--color-danger);
   margin: 0;
 }
 </style>

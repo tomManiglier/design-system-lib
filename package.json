@@ -1,7 +1,25 @@
 {
   "name": "@tommaniglier/design-system-lib",
-  "version": "0.5.0",
+  "version": "1.0.0",
   "description": "Design system installable en npm avec styles, composants et custom elements.",
+  "license": "MIT",
+  "author": "Tom Maniglier",
+  "homepage": "https://tommaniglier.github.io/design-system-doc/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomManiglier/design-system-lib.git"
+  },
+  "bugs": "https://github.com/tomManiglier/design-system-lib/issues",
+  "keywords": [
+    "design-system",
+    "vue",
+    "vue3",
+    "components",
+    "ui",
+    "custom-elements",
+    "design-tokens",
+    "scss"
+  ],
   "main": "./dist/index.js",
   "types": "./dist/lib/index.d.ts",
   "files": [

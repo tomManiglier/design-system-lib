@@ -124,11 +124,11 @@ withDefaults(
 }
 
 .avatar__status--online {
-  background: #22c55e;
+  background: var(--color-success);
 }
 
 .avatar__status--busy {
-  background: #ef4444;
+  background: var(--color-danger);
 }
 
 .avatar__status--offline {

@@ -168,7 +168,7 @@ const resolvedType = computed(() =>
 
   &:focus {
     border-color: var(--color-ring);
-    box-shadow: 0 0 0 3px rgba(0, 154, 223, 0.15);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-ring) 18%, transparent);
   }
 }
 </style>

@@ -34,26 +34,26 @@ withDefaults(
 }
 
 .alert--info {
-  color: #005ca9;
-  background: rgba(0, 154, 223, 0.08);
-  border-color: rgba(0, 154, 223, 0.25);
+  color: var(--color-info);
+  background: color-mix(in srgb, var(--color-info) 8%, transparent);
+  border-color: color-mix(in srgb, var(--color-info) 25%, transparent);
 }
 
 .alert--success {
-  color: #1a7f45;
-  background: rgba(26, 127, 69, 0.08);
-  border-color: rgba(26, 127, 69, 0.25);
+  color: var(--color-success);
+  background: color-mix(in srgb, var(--color-success) 8%, transparent);
+  border-color: color-mix(in srgb, var(--color-success) 25%, transparent);
 }
 
 .alert--warning {
-  color: #8a6d00;
-  background: rgba(254, 235, 23, 0.16);
-  border-color: rgba(200, 170, 0, 0.35);
+  color: var(--color-warning);
+  background: color-mix(in srgb, var(--color-warning) 10%, transparent);
+  border-color: color-mix(in srgb, var(--color-warning) 30%, transparent);
 }
 
 .alert--danger {
-  color: #b3261e;
-  background: rgba(179, 38, 30, 0.08);
-  border-color: rgba(179, 38, 30, 0.25);
+  color: var(--color-danger);
+  background: color-mix(in srgb, var(--color-danger) 8%, transparent);
+  border-color: color-mix(in srgb, var(--color-danger) 25%, transparent);
 }
 </style>

@@ -44,6 +44,7 @@ defineEmits<{
   display: flex;
   flex-direction: column;
   width: 220px;
+  max-width: 100%;
   padding: 16px 12px;
   background: var(--color-surface);
   border: 1px solid var(--color-border);

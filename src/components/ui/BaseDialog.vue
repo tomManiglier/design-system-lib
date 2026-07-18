@@ -3,7 +3,14 @@
     <transition name="dialog">
       <div v-if="modelValue" class="dialog">
         <div class="dialog__overlay" @click="close" />
-        <div class="dialog__panel" role="dialog" aria-modal="true">
+        <div
+          ref="panelEl"
+          class="dialog__panel"
+          role="dialog"
+          aria-modal="true"
+          :aria-label="title"
+          tabindex="-1"
+        >
           <header v-if="title" class="dialog__header" :class="{ 'dialog__header--danger': variant === 'danger' }">
             <span v-if="variant === 'danger'" class="dialog__danger-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -29,7 +36,8 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted } from 'vue';
+import { ref } from 'vue';
+import { useModalA11y } from './useModalA11y';
 
 const props = withDefaults(
   defineProps<{
@@ -45,17 +53,14 @@ const emit = defineEmits<{
   (event: 'update:modelValue', value: boolean): void;
 }>();
 
+const panelEl = ref<HTMLElement | null>(null);
+
 function close() {
   emit('update:modelValue', false);
 }
 
-// Fermeture au clavier (Échap)
-function onKeydown(e: KeyboardEvent) {
-  if (e.key === 'Escape' && props.modelValue) close();
-}
-
-onMounted(() => window.addEventListener('keydown', onKeydown));
-onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown));
+// Échap, gel du scroll de fond, piège à focus et restauration du focus
+useModalA11y(() => !!props.modelValue, panelEl, close);
 </script>
 
 <style scoped lang="scss">
@@ -77,8 +82,13 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown));
 
 .dialog__panel {
   position: relative;
+  outline: none; // focus programmatique à l'ouverture : pas d'anneau sur le panneau
+  display: flex;
+  flex-direction: column;
   width: 100%;
   max-width: 420px;
+  // Contenu long sur écran court : le panneau reste dans le viewport et le corps défile
+  max-height: calc(100vh - 48px);
   background: var(--color-surface);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
@@ -98,8 +108,8 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown));
   flex: none;
   width: 36px;
   height: 36px;
-  color: #b3261e;
-  background: rgba(179, 38, 30, 0.1);
+  color: var(--color-danger);
+  background: color-mix(in srgb, var(--color-danger) 10%, transparent);
   border-radius: 50%;
 }
 
@@ -118,6 +128,8 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown));
 
 .dialog__body {
   margin-top: 16px;
+  min-height: 0;
+  overflow-y: auto;
   font-size: var(--text-sm);
   line-height: 1.6;
 }

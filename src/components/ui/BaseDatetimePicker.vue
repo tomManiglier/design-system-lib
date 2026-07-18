@@ -128,8 +128,10 @@ onBeforeUnmount(() => {
     box-shadow 0.15s ease;
 
   &:focus-visible {
+    // Déclencheur stylé comme un champ : indicateur bordure + halo, sans l'outline global
+    outline: none;
     border-color: var(--color-ring);
-    box-shadow: 0 0 0 3px rgba(0, 154, 223, 0.15);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-ring) 18%, transparent);
   }
 }
 

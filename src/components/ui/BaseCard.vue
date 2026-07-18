@@ -56,6 +56,7 @@ defineProps<{
 
 .card__footer {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   padding: 0 20px 20px;
 }
