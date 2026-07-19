@@ -137,7 +137,7 @@ withDefaults(
 }
 
 .btn--link {
-  color: var(--color-accent);
+  color: var(--color-orange);
 }
 
 // Lien noir : trait visible par défaut, il sort par la droite au survol

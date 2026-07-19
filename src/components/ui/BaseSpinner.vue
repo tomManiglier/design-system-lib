@@ -20,7 +20,7 @@ withDefaults(
 .spinner {
   display: inline-block;
   border: 2px solid var(--color-border);
-  border-top-color: var(--color-accent);
+  border-top-color: var(--color-orange);
   border-radius: 50%;
   animation: spinner-rotate 0.7s linear infinite;
 }

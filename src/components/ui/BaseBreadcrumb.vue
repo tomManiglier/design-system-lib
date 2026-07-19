@@ -46,7 +46,7 @@ function linkTarget(item: BreadcrumbItem) {
   transition: color 0.12s ease;
 
   &:hover {
-    color: var(--color-accent);
+    color: var(--color-orange);
   }
 }
 

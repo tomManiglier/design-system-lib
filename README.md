@@ -119,6 +119,43 @@ import '@tommaniglier/design-system-lib/styles.css';
 
 `vue` est déclaré en `peerDependencies` : l'appli consommatrice doit avoir sa propre installation de Vue 3 (ce bundle ne l'embarque pas, contrairement à `register.js`).
 
+## Animations (sous-chemin `/motion`)
+
+Couche d'animation optionnelle bâtie sur [GSAP](https://gsap.com/) et alignée sur les tokens
+de mouvement. `gsap` est une **peer dependency optionnelle** : les composants ne l'importent
+jamais — seul ce sous-chemin la requiert, et son poids n'est donc payé que par les projets qui
+l'utilisent. Tout respecte `prefers-reduced-motion` (saut direct à l'état final).
+
+```bash
+npm install gsap   # requis uniquement pour /motion
+```
+
+```ts
+import { vReveal, vCountUp, vGradientFlow, useFlip, MotionPlugin } from '@tommaniglier/design-system-lib/motion';
+```
+
+| Export | Type | Rôle |
+| --- | --- | --- |
+| `vReveal` | directive | Apparition au scroll (fondu + montée), en cascade sur les enfants avec `stagger`. |
+| `vGradientFlow` | directive | Dérive lente d'un dégradé de fond (expression de marque). |
+| `vCountUp` | directive | Incrémente un nombre à l'entrée dans le viewport. |
+| `useFlip` | composable | Repositionnement fluide d'une liste filtrée/triée (GSAP Flip). |
+| `MotionPlugin` | plugin Vue | Enregistre les trois directives d'un coup. |
+
+```vue
+<script setup>
+import { vReveal, vCountUp } from '@tommaniglier/design-system-lib/motion';
+</script>
+
+<template>
+  <section v-reveal="{ stagger: 0.08 }">
+    <article>…</article>
+    <article>…</article>
+  </section>
+  <span v-count-up="{ to: 40, suffix: ' composants' }" />
+</template>
+```
+
 ## Structure
 
 ```

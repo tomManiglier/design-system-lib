@@ -24,8 +24,14 @@
           <path d="m6 9 6 6 6-6" />
         </svg>
       </button>
-      <div v-show="open === i" class="accordion__content">
-        <p>{{ item.content }}</p>
+      <div
+        class="accordion__panel"
+        :class="{ 'accordion__panel--open': open === i }"
+        :aria-hidden="open !== i"
+      >
+        <div class="accordion__content">
+          <p>{{ item.content }}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -79,15 +85,41 @@ function toggle(index: number) {
   transform: rotate(180deg);
 }
 
-.accordion__content {
-  padding: 0 0 18px;
+// Hauteur animée en CSS pur (grid-template-rows 0fr → 1fr) : s'adapte à un contenu
+// de longueur variable sans mesurer le DOM en JS. Le padding reste sur le contenu
+// (grid item en overflow:hidden), donc une piste à 0fr rend bien une hauteur nulle.
+.accordion__panel {
+  display: grid;
+  // Sans wrapper minmax() : c'est justement la forme brute (0fr/1fr) sur un
+  // conteneur à hauteur intrinsèque qui déclenche la résolution « 1fr = hauteur du
+  // contenu » côté navigateur ; minmax(0, 1fr) casse ce mécanisme et fige à 0.
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--duration-base) var(--ease-out-expo);
+}
 
+.accordion__panel--open {
+  grid-template-rows: 1fr;
+}
+
+.accordion__content {
+  overflow: hidden;
+  min-height: 0;
+
+  // Le padding reste sur le <p>, pas sur l'item de grille : posé ici, il
+  // s'ajouterait à la hauteur minimale de la piste même fermée (0fr ≠ 0px).
   p {
     font-size: var(--text-sm);
     line-height: 1.6;
     color: var(--color-muted-foreground);
     margin: 0;
+    padding-bottom: 18px;
     max-width: 90%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accordion__panel {
+    transition: none;
   }
 }
 </style>
